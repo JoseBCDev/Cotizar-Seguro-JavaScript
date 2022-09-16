@@ -37,3 +37,34 @@ const ui = new UI();
 document.addEventListener('DOMContentLoaded',()=>{
    ui.llenarOpciones(); //Llenamos los campos de Años
 });
+
+eventListener();
+
+
+
+function eventListener(){
+    const formulario = document.querySelector('#cotizar-seguro');
+
+    formulario.addEventListener('submit',cotizarSeguro);
+}
+//FUNCION PARA SELECIONAR ELEMENTOS
+
+function cotizarSeguro(e){
+    e.preventDefault();
+   
+    //Leer Marca
+    const marca = document.querySelector('#marca').value;
+
+    //Leer Año
+    const year = document.querySelector('#year').value;
+
+    //Leer Tipo de Seguro
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+    if(marca==='' || year==='' || tipo==='')
+    {
+        console.log('falta rellenar campos');
+    }else{
+        console.log('todos stan completos');
+    }
+}
