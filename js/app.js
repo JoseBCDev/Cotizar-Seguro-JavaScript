@@ -11,6 +11,42 @@ function UI(){}
 
 //Prototypes
 
+Seguro.prototype.cotizarSeguro = function(){
+    
+    let cantidad;
+    //PRECIO BASE 20K EL AUTO 
+    const base = 20000;
+
+    switch (this.marca) {
+        case '1':
+            cantidad = base*1.15;
+            break;
+        case '2':
+            cantidad = base*1.05;
+            break;
+        case '3':
+            cantidad = base*1.35;
+            break;
+        default:
+            break;
+    }
+    const hoy = new Date().getFullYear();
+    const diferencia = hoy - this.year;
+
+    //MIENTRAS MAS ANTIGUO EL AUTO, SE REDUCIRA 3% EL COSTO
+
+    cantidad -= (diferencia*3*cantidad)/100;
+
+    //SI ES DE TIPO BASICO SE INCREMENTA 1.30 SINO, EN 1.50
+    if(this.tipo === 'basico')
+    {
+        cantidad *= 1.30;
+    }else{
+        cantidad *= 1.50;
+    }
+    return cantidad;
+};
+
 UI.prototype.llenarOpciones = ()=>{
     const max = new Date().getFullYear();
     const min = max - 20;
@@ -88,4 +124,8 @@ function cotizarSeguro(e){
     }
 
     ui.mostrarMensaje('Cotizando...','exito');
+
+    //Instanciamos el Objeto Seguro, le pasamos datos de marca,year y tipo
+    const seguro = new Seguro(marca,year,tipo);
+    console.log(seguro.cotizarSeguro());
 }
